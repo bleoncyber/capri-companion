@@ -1,0 +1,9 @@
+{
+  "name": "Capri — Compagna digitale",
+  "short_name": "Capri",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070a18",
+  "theme_color": "#080b1b",
+  "icons": []
+}

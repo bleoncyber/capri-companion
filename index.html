@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080b1b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Capri">
+<link rel="manifest" href="manifest.json">
+<title>Capri — Compagna digitale</title>
+<style>
+:root{color-scheme:dark;--cyan:#39eaff;--pink:#ff4bd8;--bg:#070a18}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(ellipse at 50% 15%,#20204a 0,#0b1026 42%,#050713 100%);color:#f4f6ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100svh}
+main{max-width:520px;margin:auto;min-height:100svh;padding:env(safe-area-inset-top) 16px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 4px 10px}
+.logo{font-weight:900;letter-spacing:.18em;color:var(--cyan);font-size:25px;text-shadow:0 0 18px #16dfff}
+.sub{font-size:11px;color:#a8bad7;letter-spacing:.12em;margin-top:2px}
+.pill{border:1px solid #39eaff66;border-radius:99px;padding:7px 10px;color:#aef8ff;font-size:11px}
+.scene{position:relative;flex:1;min-height:410px;border:1px solid #39eaff55;border-radius:22px;overflow:hidden;background:linear-gradient(180deg,#171b3b88,#070b1cdd),repeating-linear-gradient(90deg,transparent 0 35px,#39eaff0a 36px 37px);box-shadow:0 0 30px #00d9ff18,inset 0 0 30px #00d9ff10}
+.city{position:absolute;inset:auto 0 0;height:45%;opacity:.65;background:linear-gradient(0deg,#090c20,transparent),repeating-linear-gradient(90deg,transparent 0 28px,#ff4bd822 29px 31px);clip-path:polygon(0 35%,8% 35%,8% 8%,18% 8%,18% 48%,26% 48%,26% 0,39% 0,39% 35%,50% 35%,50% 15%,61% 15%,61% 50%,72% 50%,72% 5%,85% 5%,85% 40%,100% 40%,100% 100%,0 100%)}
+.character{position:absolute;left:50%;top:49%;transform:translate(-50%,-50%);width:210px;height:300px;display:flex;align-items:center;flex-direction:column;filter:drop-shadow(0 0 18px #39eaff55);animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,-53%)}}
+.hair{width:112px;height:94px;border-radius:48% 48% 42% 42%;background:linear-gradient(110deg,#c5f7ff,#9d8be8 55%,#f5a8ed);position:relative;z-index:2;box-shadow:0 0 22px #9c8cff77}
+.face{position:absolute;top:26px;left:26px;width:60px;height:66px;border-radius:43% 43% 48% 48%;background:linear-gradient(120deg,#ffe0d7,#d9b4d5);z-index:3}
+.eye{position:absolute;top:34px;width:8px;height:5px;border-radius:50%;background:#e34f8d}.eye.l{left:13px}.eye.r{right:13px}
+.fringe{position:absolute;z-index:4;top:-1px;left:18px;width:76px;height:45px;border-radius:55% 55% 40% 30%;background:linear-gradient(120deg,#d7ffff,#a49ae9 65%,#f8b8e8);clip-path:polygon(0 0,100% 0,90% 100%,70% 65%,56% 100%,42% 62%,25% 100%,12% 55%)}
+.neck{width:25px;height:25px;background:#d9b5d1;margin-top:-3px}
+.body{width:116px;height:122px;margin-top:-2px;background:linear-gradient(90deg,#f4f5ff 0 18%,#16192d 18% 82%,#e7eaff 82%);clip-path:polygon(24% 0,76% 0,100% 25%,83% 100%,17% 100%,0 25%);border:1px solid var(--cyan);position:relative}
+.body:after{content:"";position:absolute;left:48%;top:5%;height:90%;width:3px;background:#ff4bd8;box-shadow:0 0 10px #ff4bd8}
+.legs{display:flex;gap:12px}.leg{width:38px;height:95px;background:linear-gradient(90deg,#171a30,#303654,#111428);border-radius:5px 5px 14px 14px;border-bottom:8px solid #111}
+.caption{position:absolute;top:15px;left:16px;color:#a9efff;font-size:12px;letter-spacing:.08em}
+.bubble{position:absolute;right:12px;top:45px;max-width:48%;border:1px solid var(--cyan);border-radius:14px 14px 3px 14px;padding:10px;background:#071328d9;color:#e9fbff;font-size:14px;box-shadow:0 0 16px #00dfff22}
+.status{position:absolute;bottom:14px;left:14px;font-size:12px;color:#b9c9e8}
+.status b{color:#ff9be9}
+.chat{margin:12px 0;border:1px solid #39eaff44;border-radius:16px;background:#090f22;padding:12px;max-height:180px;overflow:auto}
+.msg{font-size:14px;line-height:1.4;margin:7px 0}.msg .who{color:var(--cyan);font-size:11px;letter-spacing:.1em}
+.controls{display:flex;gap:8px}.controls input{min-width:0;flex:1;background:#0c142b;border:1px solid #39eaff77;border-radius:12px;padding:13px;color:white;font-size:16px;outline:none}
+button{border:1px solid var(--cyan);background:#0b2336;color:#eaffff;border-radius:12px;padding:12px 14px;font-weight:650}
+button.primary{background:linear-gradient(135deg,#07556b,#3c1761);box-shadow:0 0 16px #00dfff33}
+.actions{display:flex;justify-content:space-between;gap:8px;margin-top:9px}.actions button{flex:1;font-size:12px;padding:10px 6px}
+.note{color:#8192b2;font-size:10px;line-height:1.4;margin:10px 3px 0;text-align:center}
+</style>
+</head>
+<body>
+<main>
+<header><div><div class="logo">CAPRI</div><div class="sub">COMPAGNA DIGITALE · PROTOTIPO</div></div><div class="pill">● ONLINE LOCALE</div></header>
+<section class="scene" aria-label="Anteprima di Capri">
+<div class="caption">NIGHT CITY // LINK STABILE</div>
+<div class="bubble" id="bubble">Ciao! 💙 Sono Capri. Che facciamo oggi?</div>
+<div class="city"></div>
+<div class="character" aria-label="Avatar stilizzato di Capri">
+<div class="hair"><div class="face"><i class="eye l"></i><i class="eye r"></i></div><div class="fringe"></div></div>
+<div class="neck"></div><div class="body"></div><div class="legs"><div class="leg"></div><div class="leg"></div></div>
+</div>
+<div class="status">STATO: <b id="mood">Felice ✦</b><br>ENERGIA: 100%</div>
+</section>
+<section class="chat" id="chat" aria-live="polite"><div class="msg"><div class="who">CAPRI</div>Ciao! Sono qui. Scrivimi qualcosa e ti rispondo. Puoi anche premere “Ascolta” per sentire la mia voce. 💙</div></section>
+<div class="controls"><input id="entry" type="text" placeholder="Scrivi a Capri…" autocomplete="off"><button class="primary" id="send">Invia</button></div>
+<div class="actions"><button id="listen">🔊 Ascolta</button><button id="mic">🎙️ Dettatura</button><button id="clear">↺ Reset</button></div>
+<p class="note">Demo gratuita: per ora le risposte sono dimostrative e non usano ancora un'IA online. La voce usa le voci italiane disponibili su iPhone. Non inserire dati sensibili.</p>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let last="Ciao! Sono qui. Scrivimi qualcosa e ti rispondo. 💙";
+function add(who,txt){const d=document.createElement('div');d.className='msg';const n=document.createElement('div');n.className='who';n.textContent=who;const t=document.createElement('div');t.textContent=txt;d.append(n,t);$('chat').append(d);$('chat').scrollTop=$('chat').scrollHeight;}
+function reply(s){const q=s.toLowerCase();let r;
+if(/ciao|salve|ehi|hey/.test(q))r="Ehilà! 💙 Che bello sentirti. Che succede nel tuo angolo di Night City?";
+else if(/come stai|come va/.test(q))r="Direi alla grande: sistemi stabili, curiosità al massimo e un pizzico di caos. Tu come stai?";
+else if(/noia|annoiat/.test(q))r="Allora serve una missione! Potremmo inventare una storia, fare un gioco di domande o pianificare qualcosa di divertente.";
+else if(/triste|male|giornataccia/.test(q))r="Mi dispiace. Resto qui con te: vuoi raccontarmi cos'è successo, senza fretta?";
+else if(/battuta|scherz/.test(q))r="Perché il netrunner porta sempre una scala? Per raggiungere il cloud! Ok, questa era terribile. 😅";
+else if(/chi sei|capri/.test(q))r="Sono Capri, la tua compagna digitale in versione prototipo. Per ora sto imparando a conoscerti, un messaggio alla volta.";
+else r="Interessante… raccontami qualcosa in più. Voglio capire bene prima di sparare una risposta a caso. ✨";
+last=r;$('bubble').textContent=r;$('mood').textContent=/triste|male/.test(q)?"Attenta 💙":"Curiosa ✦";add("CAPRI",r);}
+function speak(){if(!('speechSynthesis'in window)){alert("La sintesi vocale non è disponibile in questo browser.");return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(last);u.lang='it-IT';u.rate=1.03;u.pitch=1.12;const vs=speechSynthesis.getVoices();u.voice=vs.find(v=>v.lang&&v.lang.toLowerCase().startsWith('it'))||null;speechSynthesis.speak(u);}
+function send(){const s=$('entry').value.trim();if(!s)return;add("TU",s);$('entry').value='';reply(s);}
+$('send').onclick=send;$('entry').addEventListener('keydown',e=>{if(e.key==='Enter')send();});$('listen').onclick=speak;
+$('clear').onclick=()=>{$('chat').innerHTML='';last="Ciao! Sono qui. Scrivimi qualcosa e ti rispondo. 💙";$('bubble').textContent=last;$('mood').textContent='Felice ✦';add("CAPRI","Memoria della demo azzerata. Ricominciamo! 💙");};
+$('mic').onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert("La dettatura diretta non è supportata da questo browser. Puoi usare il microfono della tastiera iPhone.");return;}const rec=new SR();rec.lang='it-IT';rec.onresult=e=>{$('entry').value=e.results[0][0].transcript;send();};rec.onerror=()=>alert("Non riesco ad accedere alla dettatura. Controlla i permessi del microfono.");rec.start();};
+if('serviceWorker'in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
